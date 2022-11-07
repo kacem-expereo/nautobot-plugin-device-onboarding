@@ -149,6 +149,7 @@ class NetdevKeeper:
             "host": self.hostname,
             "username": self.username,
             "password": self.password,
+            "ssh_config_file": "/root/.ssh/config",
             **netmiko_optional_args,
         }
 
@@ -227,7 +228,7 @@ class NetdevKeeper:
           OnboardException('fail-general'):
             Any other unexpected device comms failure.
         """
-        self.check_reachability()
+        #self.check_reachability()
 
         logger.info("COLLECT: device information %s", self.hostname)
 
@@ -242,7 +243,7 @@ class NetdevKeeper:
 
             # Create NAPALM optional arguments
             napalm_optional_args = self.optional_args.copy()
-
+            napalm_optional_args['ssh_config_file']="/root/.ssh/config"
             if self.port:
                 napalm_optional_args["port"] = self.port
 
